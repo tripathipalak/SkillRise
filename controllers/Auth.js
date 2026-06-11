@@ -192,7 +192,7 @@ exports.signUp = async (req, res) => {
 exports.login = async(req,res) => {
 
     try {
-        // get data from req body
+        // get data from request body
         const { email, password } = req.body;
 
         // validate data
@@ -203,7 +203,7 @@ exports.login = async(req,res) => {
             });
         }
 
-        // user check exist or not
+        // check if user exits or not
         const user = await User.findOne({ email })
         .populate("additionalDetails");  // you should usually also populate only if additionalDetails is a reference field in your User schema... Otherwise, you can remove .populate(...)
 
@@ -280,7 +280,7 @@ exports.changePassword = async (req, res) => {
             });
         }
 
-        // check if new passwords match
+        // check if new password match
         if (newPassword !== confirmNewPassword) {
             return res.status(400).json({
                 success: false,
@@ -328,4 +328,4 @@ exports.changePassword = async (req, res) => {
             message: "Error while changing password",
         });
     }
-};
+};   
