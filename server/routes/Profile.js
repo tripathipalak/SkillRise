@@ -24,4 +24,3 @@ router.put("/updateDisplayPicture", auth, updateDisplayPicture)
 router.get("/instructorDashboard", auth, isInstructor, instructorDashboard)
 
 module.exports = router
-
