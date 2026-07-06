@@ -7,7 +7,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== Scrollbar CSS ===== */
+/* Scrollbar CSS */
 /* Firefox */
 * {
   scrollbar-width: auto;
@@ -244,4 +244,105 @@ details > summary::-webkit-details-marker {
 }
 .section_heading {
   @apply text-2xl font-bold text-richblack-5 lg:text-4xl;
+}
+
+
+
+
+ .reviewSwiper {
+  padding-top: 30px;
+  padding-bottom: 60px;
+  overflow: visible !important;
+}
+
+.reviewSwiper .swiper-wrapper {
+  align-items: stretch;
+}
+ 
+.reviewSwiper .swiper-slide {
+  transition: all 0.5s ease;
+  opacity: 0.45;
+  transform: scale(0.82);
+  height: auto;
+  display: flex;
+}
+
+.reviewSwiper .swiper-slide-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.reviewSwiper .swiper-slide-prev,
+.reviewSwiper .swiper-slide-next {
+  opacity: 0.75;
+  transform: scale(0.9);
+}
+
+.reviewSwiper .swiper-pagination {
+  position: relative;
+  bottom: 0 !important;
+  margin-top: 30px;
+}
+
+.reviewSwiper .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: #6b7280;
+  opacity: 1;
+  transition: 0.3s;
+}
+
+.reviewSwiper .swiper-pagination-bullet-active {
+  width: 28px;
+  border-radius: 999px;
+  background: #8b5cf6;
+}
+
+.reviewSwiper .swiper-button-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.react-simple-star-rating {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center; 
+}
+
+.reviewSwiper span[role="img"],
+.reviewSwiper span svg,
+.reviewSwiper [class*="rating"] {
+  display: inline-flex !important;
+}
+
+.reviewSwiper [class*="rating"] > div,
+.reviewSwiper [class*="rating"] > span {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+}  
+
+
+::-webkit-scrollbar {
+  width: 3px;          
+  height: 3px;          
+}
+
+::-webkit-scrollbar-track {
+  background: #000814;  
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2C333F;  
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #12D8FA;  
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;                 
+  scrollbar-color: #2C333F #000814;       
 }

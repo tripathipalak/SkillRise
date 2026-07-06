@@ -21,6 +21,7 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <App />
+        <Toaster position="top-center" />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
