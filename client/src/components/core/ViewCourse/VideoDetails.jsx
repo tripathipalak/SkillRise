@@ -31,17 +31,21 @@ const VideoDetails = () => {
         navigate(`/dashboard/enrolled-courses`);
       } else {
         // console.log("courseSectionData", courseSectionData)
-        const filteredData = courseSectionData.filter(
-          (course) => course._id === sectionId,
-        );
-        // console.log("filteredData", filteredData)
-        const filteredVideoData = filteredData?.[0]?.subSection.filter(
-          (data) => data._id === subSectionId,
-        );
-        // console.log("filteredVideoData", filteredVideoData)
-        setVideoData(filteredVideoData[0]);
-        setPreviewSource(courseEntireData.thumbnail);
-        setVideoEnded(false);
+        const filteredSection = courseSectionData.find(
+  (course) => course._id === sectionId
+);
+
+if (!filteredSection) return;
+
+const filteredVideoData = filteredSection.subSection.find(
+  (data) => data._id === subSectionId
+);
+
+if (!filteredVideoData) return;
+
+setVideoData(filteredVideoData);
+setPreviewSource(courseEntireData?.thumbnail || "");
+setVideoEnded(false);
       }
     })();
   }, [courseSectionData, courseEntireData, location.pathname]);
@@ -161,6 +165,9 @@ const VideoDetails = () => {
     setLoading(false);
   };
 
+  console.log("Video Data:", videoData); 
+          console.log("Video URL:", videoData?.videoUrl);
+
   return (
     <div className="flex flex-col gap-5 text-white">
       {!videoData ? (
@@ -173,9 +180,10 @@ const VideoDetails = () => {
         <>
           <ReactPlayer
             ref={playerRef}
-            url={videoData?.videoUrl}
+            src={videoData?.videoUrl}
             controls
             width="100%"
+            height="100%"
             onEnded={() => setVideoEnded(true)}
           />
           {videoEnded && (

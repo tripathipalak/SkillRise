@@ -46,7 +46,9 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
         })
     }
 
-    // console.log("Student already enrolled ", course?.studentsEnroled, user?._id)
+    console.log("Student already enrolled ", course.studentsEnrolled);
+    console.log("User id is ", user._id);
+
 
     return (
         <>
@@ -91,7 +93,7 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
 
                     <div className={``}>
                         <p className={`my-2 text-xl font-semibold `}>
-                            This Course Includes :
+                            This Course Requires :
                         </p>
                         <div className="flex flex-col gap-3 text-sm text-caribbeangreen-100">
                             {course?.instructions?.map((item, i) => {

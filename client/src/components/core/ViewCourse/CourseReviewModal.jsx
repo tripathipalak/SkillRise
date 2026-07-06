@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { RxCross2 } from "react-icons/rx";
-import ReactStars from "react-rating-stars-component";
+import { Rating } from "react-simple-star-rating";
 import { useSelector } from "react-redux";
 
 import { createRating } from "../../../services/operations/courseDetailsAPI";
@@ -16,21 +16,30 @@ export default function CourseReviewModal({ setReviewModal }) {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm();
 
   useEffect(() => {
+    register("courseRating", { required: true });
+
     setValue("courseExperience", "");
     setValue("courseRating", 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [register, setValue]);
 
   const ratingChanged = (newRating) => {
-    // console.log(newRating)
-    setValue("courseRating", newRating);
+    console.log("Selected Rating:", newRating);
+
+    setValue("courseRating", newRating, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
   };
 
   const onSubmit = async (data) => {
+    console.log(data);
+
     await createRating(
       {
         courseId: courseEntireData._id,
@@ -71,12 +80,22 @@ export default function CourseReviewModal({ setReviewModal }) {
             onSubmit={handleSubmit(onSubmit)}
             className="mt-6 flex flex-col items-center"
           >
-            <ReactStars
-              count={5}
-              onChange={ratingChanged}
-              size={24}
-              activeColor="#ffd700"
-            />
+            <div className="flex flex-row items-center justify-center gap-x-1">
+              <Rating
+                onClick={(value) => {
+                  ratingChanged(value);
+                }}
+                initialValue={watch("courseRating") || 0}
+                allowFraction={false}
+                size={30}
+                SVGstyle={{ display: "inline-block" }}
+              />
+            </div>
+
+            <p className="mt-2 text-white">
+              Rating: {watch("courseRating")}
+            </p>
+
             <div className="flex w-11/12 flex-col space-y-2">
               <label
                 className="text-sm text-richblack-5"

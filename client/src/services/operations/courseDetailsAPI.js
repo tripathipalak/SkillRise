@@ -374,14 +374,21 @@ export const createRating = async (data, token) => {
         })
         console.log("CREATE RATING API RESPONSE............", response)
         if (!response?.data?.success) {
-            throw new Error("Could Not Create Rating")
+            toast.error(response.data.message)
+            toast.dismiss(toastId)
+            return false
         }
-        toast.success("Rating Created")
+        toast.success("Review Added Successfully")
         success = true
     } catch (error) {
         success = false
         console.log("CREATE RATING API ERROR............", error)
-        toast.error(error.message)
+        const message = 
+            error.response?.data?.message || 
+            error.message || 
+            "Could not submit review"
+
+        toast.error(message)
     }
     toast.dismiss(toastId)
     return success

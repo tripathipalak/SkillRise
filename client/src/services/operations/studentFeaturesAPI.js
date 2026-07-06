@@ -1,7 +1,6 @@
 import { toast } from "react-hot-toast";
 import { studentEndpoints } from "../apis";
 import { apiConnector } from "../apiConnector";
-import rzpLogo from "../../assets/Logo/rzp_logo.png"
 import { setPaymentLoading } from "../../slices/courseSlice";
 import { resetCart } from "../../slices/cartSlice";
 
@@ -47,21 +46,21 @@ export async function buyCourse(token, courses, userDetails, navigate, dispatch)
         }
         console.log("PRINTING orderResponse", orderResponse);
         //options
+        console.log("RAZORPAY KEY:", process.env.REACT_APP_RAZORPAY_KEY);
         const options = {
-            key: process.env.RAZORPAY_KEY,
-            currency: orderResponse.data.message.currency,
-            amount: `${orderResponse.data.message.amount}`,
-            order_id: orderResponse.data.message.id,
-            name: "StudyNotion",
+            key: process.env.REACT_APP_RAZORPAY_KEY,
+            currency: orderResponse.data.data.currency,
+            amount: `${orderResponse.data.data.amount}`,
+            order_id: orderResponse.data.data.id,
+            name: "SkillRise",
             description: "Thank You for Purchasing the Course",
-            image: rzpLogo,
             prefill: {
                 name: `${userDetails.firstName}`,
                 email: userDetails.email
             },
             handler: function (response) {
                 //send successful wala mail
-                sendPaymentSuccessEmail(response, orderResponse.data.message.amount, token);
+                sendPaymentSuccessEmail(response, orderResponse.data.data.amount, token);
                 //verifyPayment
                 verifyPayment({ ...response, courses }, token, navigate, dispatch);
             }

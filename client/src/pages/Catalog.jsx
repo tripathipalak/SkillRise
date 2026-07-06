@@ -20,10 +20,16 @@ const Catalog = () => {
   useEffect(() => {
     const getCategories = async () => {
       const res = await apiConnector("GET", categories.CATEGORIES_API);
-      const category_id = res?.data?.data?.filter(
-        (ct) => ct.name.split(" ").join("-").toLowerCase() === catalogName,
-      )[0]._id;
-      setCategoryId(category_id);
+      const category = res?.data?.data?.find(
+        (ct) =>
+          ct.name
+            .toLowerCase()
+            .replace(/\//g, "-")
+            .replace(/\s+/g, "-") === catalogName,
+      );
+      if(category) {
+      setCategoryId(category?._id);
+      }
     };
     getCategories();
   }, [catalogName]);
