@@ -1,5 +1,4 @@
 import { toast } from "react-hot-toast"
-
 import { setLoading, setToken } from "../../slices/authSlice"
 import { resetCart } from "../../slices/cartSlice"
 import { setUser } from "../../slices/profileSlice"
@@ -110,8 +109,11 @@ export function login(email, password, navigate) {
             localStorage.setItem("user", JSON.stringify(response.data.user))
             navigate("/dashboard/my-profile")
         } catch (error) {
-            console.log("LOGIN API ERROR............", error)
-            toast.error("Login Failed")
+            console.log("LOGIN API ERROR............", error);
+
+            toast.error(
+                error.response?.data?.message || "Login Failed"
+            );
         }
         dispatch(setLoading(false))
         toast.dismiss(toastId)
@@ -129,8 +131,6 @@ export function logout(navigate) {
         navigate("/")
     }
 }
-
-
 
 export function getPasswordResetToken(email, setEmailSent) {
     return async (dispatch) => {
@@ -155,7 +155,7 @@ export function getPasswordResetToken(email, setEmailSent) {
     }
 }
 
-export function resetPassword(password, confirmPassword, token) {
+export function resetPassword(password, confirmPassword, token,navigate) {
     return async (dispatch) => {
         dispatch(setLoading(true));
         try {
@@ -168,11 +168,22 @@ export function resetPassword(password, confirmPassword, token) {
                 throw new Error(response.data.message);
             }
 
-            toast.success("Password has been reset successfully");
+            toast.success("Password reset successfully! Redirecting to Login...");
+
+            // Here wait a little so the user can read the toast 
+            setTimeout(() => {
+                navigate("/login");
+            }, 2000);
         }
+
         catch (error) {
-            console.log("RESET PASSWORD TOKEN Error", error);
-            toast.error("Unable to reset password");
+            // console.log("RESET PASSWORD TOKEN Error", error);
+            console.log("Full Error:", error);
+            console.log("Response:", error.response);
+            console.log("Data:", error.response?.data);
+            toast.error(
+                error.response?.data?.message || "Unable to reset password"
+            );
         }
         dispatch(setLoading(false));
     }

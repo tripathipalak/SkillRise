@@ -3,7 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { BiArrowBack } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
+import { toast } from "react-hot-toast";
 import { resetPassword } from "../services/operations/authAPI";
 
 function UpdatePassword() {
@@ -30,6 +30,13 @@ function UpdatePassword() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+
+    // Frontend validation
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
     const token = location.pathname.split("/").at(-1);
     dispatch(resetPassword(password, confirmPassword, token, navigate));
   };
@@ -44,7 +51,7 @@ function UpdatePassword() {
             Choose new password
           </h1>
           <p className="my-4 text-[1.125rem] leading-[1.625rem] text-richblack-100">
-            Almost done. Enter your new password and youre all set.
+            Almost done. Enter your new password and you&apos;re all set.
           </p>
           <form onSubmit={handleOnSubmit}>
             <label className="relative">
