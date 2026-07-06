@@ -2,7 +2,7 @@ export const FooterLink2 = [
   {
     title: "Subjects",
     links: [
-      { title: "Al", link: "/al" },
+      { title: "AI", link: "/ai" },  // also fixed "Al" → "AI"
       { title: "Cloud Computing", link: "/cloud-computing" },
       { title: "Code Foundations", link: "/code-foundations" },
       { title: "Computer Science", link: "/computer-science" },
@@ -41,15 +41,14 @@ export const FooterLink2 = [
     ],
   },
   {
-    title: "Career building",
+    title: "Career Building",
     links: [
-        {title: "Career paths", link: "/career-paths"},
-        {title: "Career services", link: "/career-services"},
-        {title: "Interview prep", link: "/interview-prep"},
-        {title: "Professional certification", link: "/professional-certification"},
-        {title: "-", link: "/hi"},
-        {title: "Full Catalog", link: "/full-catalog"},
-        {title: "Beta Content", link: "/beta-content"}
-    ]
-  }
+      { title: "Career Paths", link: "/career-paths" },
+      { title: "Career Services", link: "/career-services" },
+      { title: "Interview Prep", link: "/interview-prep" },
+      { title: "Professional Certification", link: "/professional-certification" },
+      { title: "Full Catalog", link: "/full-catalog" },
+      { title: "Beta Content", link: "/beta-content" },
+    ],
+  },
 ];

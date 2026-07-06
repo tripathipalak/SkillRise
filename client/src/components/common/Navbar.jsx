@@ -42,14 +42,22 @@ function Navbar() {
 
   return (
     <div
-      className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 ${
+      className={`flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700 relative z-50 px-6 lg:px-12 ${
         location.pathname !== "/" ? "bg-richblack-800" : ""
       } transition-all duration-200`}
     >
       <div className="flex w-11/12 max-w-maxContent items-center justify-between">
         {/* Logo */}
-        <Link to="/">
-          <img src={logo} alt="Logo" width={160} height={32} loading="lazy" />
+        <Link to="/" className="pl-4 lg:pl-4">
+          {/* <img src={logo} alt="Logo" width={160} height={32} loading="lazy" /> */}
+          <img
+            src={logo}
+            alt="SkillRise"
+            width={180}
+            height={28}
+            loading="lazy"
+            className="pt-1"
+          />
         </Link>
         {/* Navigation links */}
         <nav className="hidden md:block">
@@ -80,9 +88,9 @@ function Navbar() {
                               ?.map((subLink, i) => (
                                 <Link
                                   to={`/catalog/${subLink.name
-                                    .split(" ")
-                                    .join("-")
-                                    .toLowerCase()}`}
+                                    .toLowerCase()
+                                    .replace(/\//g, "-")
+                                    .replace(/\s+/g, "-")}`}
                                   className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50"
                                   key={i}
                                 >
