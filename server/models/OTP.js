@@ -43,12 +43,15 @@ async function sendVerificationEmail(email, otp) {
 // Define a post-save hook to send email after the document has been saved
 OTPSchema.pre("save", async function (next) {
   console.log("New document saved to database");
-
+  try {
   // Only send an email when a new document is created
-  if (this.isNew) {
-    await sendVerificationEmail(this.email, this.otp);
+    if (this.isNew) {
+      await sendVerificationEmail(this.email, this.otp);
+    }
+  } catch (error) {
+    console.log("Error in pre save hook: ", error);
+    throw error;
   }
-  next();
 });
 
 const OTP = mongoose.model("OTP", OTPSchema);

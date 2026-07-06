@@ -8,11 +8,18 @@ dotenv.config();
 // auth middleware -- This function is used as middleware to authenticate user requests
 exports.auth = async (req, res, next) => {
   try {
+
+    console.log("req.body:", req.body);
+    console.log("Authorization:", req.header("Authorization"));
+    console.log("Cookies:", req.cookies);
+
     // Extracting JWT from request cookies, body or header
     const token =
-      req.cookies.token ||
-      req.body.token ||
-      req.header("Authorization").replace("Bearer ", "");
+      req.cookies?.token ||
+      req.body?.token ||
+      (req.header("Authorization")
+        ? req.header("Authorization").replace("Bearer ", "")
+        : null);
 
     // If JWT is missing, return 401 Unauthorized response
     if (!token) {
@@ -86,14 +93,23 @@ exports.isAdmin = async (req, res, next) => {
 };
 
 
-
-// isInstructor --
+//isInstructor --
 exports.isInstructor = async (req, res, next) => {
   try {
+    console.log("Decoded User:", req.user);
+
     const userDetails = await User.findOne({ email: req.user.email });
 
-    console.log(userDetails);
-    console.log(userDetails.accountType);
+    console.log("DB User:", userDetails);
+
+    if (!userDetails) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    console.log("Account Type:", userDetails.accountType);
 
     if (userDetails.accountType !== "Instructor") {
       return res.status(401).json({
@@ -101,12 +117,14 @@ exports.isInstructor = async (req, res, next) => {
         message: "This is a Protected Route for Instructor",
       });
     }
+
     next();
   } catch (error) {
-    return res
-      .status(500)
-      .json({ 
-        success: false, 
-        message: `User Role Can't be Verified` });
+    console.log(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "User Role Can't be Verified",
+    });
   }
 };

@@ -8,8 +8,7 @@ const { passwordUpdated } = require("../mail/templates/passwordUpdate");
 const Profile = require("../models/Profile");
 require("dotenv").config();
 
-// Signup Controller for Registering USers
-
+// Signup Controller for Registering Users
 exports.signup = async (req, res) => {
   try {
     // Destructure fields from the request body
@@ -95,7 +94,7 @@ exports.signup = async (req, res) => {
       accountType: accountType,
       approved: approved,
       additionalDetails: profileDetails._id,
-      image: "",
+      image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
     });
 
     return res.status(200).json({
@@ -135,7 +134,7 @@ exports.login = async (req, res) => {
       // Return 401 Unauthorized status code with error message
       return res.status(401).json({
         success: false,
-        message: `User is not Registered with Us Please SignUp to Continue`,
+        message: `User is not registered with us. Please Signup to continue`,
       });
     }
 

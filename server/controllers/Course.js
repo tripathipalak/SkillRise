@@ -133,6 +133,7 @@ exports.createCourse = async (req, res) => {
     });
   }
 };
+
 // Edit Course Details
 exports.editCourse = async (req, res) => {
   try {
@@ -157,7 +158,7 @@ exports.editCourse = async (req, res) => {
 
     // Update only the fields that are present in the request body
     for (const key in updates) {
-      if (updates.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(updates, key)) {
         if (key === "tag" || key === "instructions") {
           course[key] = JSON.parse(updates[key]);
         } else {
@@ -201,6 +202,7 @@ exports.editCourse = async (req, res) => {
     });
   }
 };
+
 // Get Course List
 exports.getAllCourses = async (req, res) => {
   try {
@@ -231,6 +233,7 @@ exports.getAllCourses = async (req, res) => {
     });
   }
 };
+
 // Get One Single Course Details
 // exports.getCourseDetails = async (req, res) => {
 //   try {
@@ -253,11 +256,7 @@ exports.getAllCourses = async (req, res) => {
 //         },
 //       })
 //       .exec()
-//     // console.log(
-//     //   "###################################### course details : ",
-//     //   courseDetails,
-//     //   courseId
-//     // );
+//  
 //     if (!courseDetails || !courseDetails.length) {
 //       return res.status(400).json({
 //         success: false,
@@ -283,6 +282,7 @@ exports.getAllCourses = async (req, res) => {
 //     })
 //   }
 // }
+
 exports.getCourseDetails = async (req, res) => {
   try {
     const { courseId } = req.body;
@@ -301,7 +301,6 @@ exports.getCourseDetails = async (req, res) => {
         path: "courseContent",
         populate: {
           path: "subSection",
-          select: "-videoUrl",
         },
       })
       .exec();
@@ -344,6 +343,7 @@ exports.getCourseDetails = async (req, res) => {
     });
   }
 };
+
 exports.getFullCourseDetails = async (req, res) => {
   try {
     const { courseId } = req.body;
@@ -441,6 +441,7 @@ exports.getInstructorCourses = async (req, res) => {
     });
   }
 };
+
 // Delete the Course
 exports.deleteCourse = async (req, res) => {
   try {
@@ -453,7 +454,7 @@ exports.deleteCourse = async (req, res) => {
     }
 
     // Unenroll students from the course
-    const studentsEnrolled = course.studentsEnroled;
+    const studentsEnrolled = course.studentsEnrolled;
     for (const studentId of studentsEnrolled) {
       await User.findByIdAndUpdate(studentId, {
         $pull: { courses: courseId },

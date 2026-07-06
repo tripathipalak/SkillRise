@@ -5,9 +5,7 @@ const User = require("../models/User")
 const mailSender = require("../utils/mailSender")
 const mongoose = require("mongoose")
 
-const {
-  courseEnrollmentEmail,
-} = require("../mail/templates/courseEnrollmentEmail")
+const { courseEnrollmentEmail } = require("../mail/templates/courseEnrollmentEmail")
 const { paymentSuccessEmail } = require("../mail/templates/paymentSuccessEmail")
 const CourseProgress = require("../models/CourseProgress")
 
@@ -35,11 +33,14 @@ exports.capturePayment = async (req, res) => {
       }
 
       // Check if the user is already enrolled in the course
-      const uid = new mongoose.Types.ObjectId(userId)
-      if (course.studentsEnroled.includes(uid)) {
-        return res
-          .status(200)
-          .json({ success: false, message: "Student is already Enrolled" })
+      const alreadyEnrolled = course.studentsEnrolled.some(
+        student => student.toString() === userId
+      )
+      if (alreadyEnrolled) {
+        return res.status(400).json({
+          success: false,
+          message: "Student is already enrolled"
+        })
       }
 
       // Add the price of the course to the total amount
@@ -152,9 +153,13 @@ const enrollStudents = async (courses, userId, res) => {
       // Find the course and enroll the student in it
       const enrolledCourse = await Course.findOneAndUpdate(
         { _id: courseId },
-        { $push: { studentsEnroled: userId } },
+        { $addToSet: { studentsEnrolled: userId, }, },
         { new: true }
       )
+
+      console.log("Course after update:");
+      console.log("Updated Course:");
+      console.log(enrolledCourse.studentsEnrolled);
 
       if (!enrolledCourse) {
         return res
@@ -172,7 +177,7 @@ const enrollStudents = async (courses, userId, res) => {
       const enrolledStudent = await User.findByIdAndUpdate(
         userId,
         {
-          $push: {
+          $addToSet: {
             courses: courseId,
             courseProgress: courseProgress._id,
           },
