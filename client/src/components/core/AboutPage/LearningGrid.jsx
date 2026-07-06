@@ -8,7 +8,7 @@ const LearningGridArray = [
     heading: "World-Class Learning for",
     highlightText: "Anyone, Anywhere",
     description:
-      "Studynotion partners with more than 275+ leading universities and companies to bring flexible, affordable, job-relevant online learning to individuals and organizations worldwide.",
+      "SkillRise brings together the best instructors, real-world projects, and a thriving community — so you can learn skills that actually matter, at your own pace, from anywhere in the world.",
     BtnText: "Learn More",
     BtnLink: "/",
   },
@@ -16,31 +16,31 @@ const LearningGridArray = [
     order: 1,
     heading: "Curriculum Based on Industry Needs",
     description:
-      "Save time and money! The Belajar curriculum is made to be easier to understand and in line with industry needs.",
+      "Every course on SkillRise is designed with one goal — to make you job-ready. No outdated content, no fluff. Just skills the industry actually demands.",
   },
   {
     order: 2,
     heading: "Our Learning Methods",
     description:
-      "Studynotion partners with more than 275+ leading universities and companies to bring",
+      "Learn by doing. SkillRise combines video lessons, hands-on projects, and real code challenges to make sure concepts actually stick.",
   },
   {
     order: 3,
     heading: "Certification",
     description:
-      "Studynotion partners with more than 275+ leading universities and companies to bring",
+      "Earn certificates that mean something. Every SkillRise certificate is tied to a real project — proof of what you can actually build.",
   },
   {
     order: 4,
     heading: `Rating "Auto-grading"`,
     description:
-      "Studynotion partners with more than 275+ leading universities and companies to bring",
+      "Get instant feedback on your code with our auto-grading system. Know exactly where you stand and what to improve — in real time.",
   },
   {
     order: 5,
     heading: "Ready to Work",
     description:
-      "Studynotion partners with more than 275+ leading universities and companies to bring",
+      "From your first lesson to your first job — SkillRise prepares you with portfolio-ready projects, interview prep, and career guidance.",
   },
 ];
 
