@@ -1,48 +1,90 @@
 import React from "react";
-
-// Importing React Icons
 import { HiUsers } from "react-icons/hi";
 import { ImTree } from "react-icons/im";
 
 const CourseCard = ({ cardData, currentCard, setCurrentCard }) => {
+  const isActive = currentCard === cardData?.heading;
+
   return (
     <div
-      className={`w-[360px] lg:w-[30%] ${
-        currentCard === cardData?.heading
-          ? "bg-white shadow-[12px_12px_0_0] shadow-yellow-50"
-          : "bg-richblack-800"
-      }  text-richblack-25 h-[300px] box-border cursor-pointer`}
       onClick={() => setCurrentCard(cardData?.heading)}
+      className={`
+        relative
+        w-[360px]
+        lg:w-[31%]
+        h-[320px]
+        cursor-pointer
+        transition-all
+        duration-300
+        group
+      `}
     >
-      <div className="border-b-[2px] border-richblack-400 border-dashed h-[80%] p-6 flex flex-col gap-3">
-        <div
-          className={` ${
-            currentCard === cardData?.heading && "text-richblack-800"
-          } font-semibold text-[20px]`}
-        >
-          {cardData?.heading}
-        </div>
+      {/* Yellow Offset */}
+      {isActive && (
+        <div className="absolute top-3 left-3 w-full h-full rounded-2xl bg-[#FACC15] transition-all duration-300"></div>
+      )}
 
-        <div className="text-richblack-400">{cardData?.description}</div>
-      </div>
-
+      {/* Card */}
       <div
-        className={`flex justify-between ${
-          currentCard === cardData?.heading
-            ? "text-blue-300"
-            : "text-richblack-300"
-        } px-6 py-3 font-medium`}
+        className={`
+          relative
+          z-10
+          h-full
+          rounded-2xl
+          border
+          overflow-hidden
+          transition-all
+          duration-300
+
+          ${
+            isActive
+              ? "bg-white border-white text-richblack-900"
+              : "bg-richblack-800 border-richblack-700 hover:border-richblack-500 text-white"
+          }
+        `}
       >
-        {/* Level */}
-        <div className="flex items-center gap-2 text-[16px]">
-          <HiUsers />
-          <p>{cardData?.level}</p>
+        {/* Content */}
+        <div className="h-[82%] p-7 border-b border-dashed border-richblack-300/30 flex flex-col gap-5">
+
+          <h3
+            className={`text-[30px] font-bold leading-tight ${
+              isActive ? "text-richblack-900" : "text-white"
+            }`}
+          >
+            {cardData.heading}
+          </h3>
+
+          <p
+            className={`text-[16px] leading-8 ${
+              isActive
+                ? "text-richblack-600"
+                : "text-richblack-300"
+            }`}
+          >
+            {cardData.description}
+          </p>
+
         </div>
 
-        {/* Flow Chart */}
-        <div className="flex items-center gap-2 text-[16px]">
-          <ImTree />
-          <p>{cardData?.lessionNumber} Lession</p>
+        {/* Footer */}
+
+        <div
+          className={`flex justify-between items-center px-7 h-[18%]
+          ${
+            isActive
+              ? "text-blue-600"
+              : "text-richblack-300"
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <HiUsers className="text-lg" />
+            <p>{cardData.level}</p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <ImTree className="text-lg" />
+            <p>{cardData.lessionNumber} Lessons</p>
+          </div>
         </div>
       </div>
     </div>
