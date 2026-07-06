@@ -38,10 +38,15 @@ export default function Upload({
   });
 
   const previewFile = (file) => {
-    // console.log(file)
+
+    console.log("Selected File:", file);
+
     const reader = new FileReader();
     reader.readAsDataURL(file);
+
     reader.onloadend = () => {
+    console.log("Preview Source:", reader.result);
+
       setPreviewSource(reader.result);
     };
   };
@@ -55,6 +60,8 @@ export default function Upload({
     setValue(name, selectedFile);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFile, setValue]);
+
+  console.log("Current Preview:", previewSource);
 
   return (
     <div className="flex flex-col space-y-2">
@@ -75,7 +82,11 @@ export default function Upload({
                 className="h-full w-full rounded-md object-cover"
               />
             ) : (
-              <ReactPlayer url={previewSource} controls width="100%" />
+              <video
+                src={previewSource}
+                controls
+                className="w-full rounded-md"
+              />
             )}
             {!viewData && (
               <button

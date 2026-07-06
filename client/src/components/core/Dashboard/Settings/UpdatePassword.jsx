@@ -13,10 +13,13 @@ export default function UpdatePassword() {
 
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     register,
     handleSubmit,
+    watch,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -24,7 +27,13 @@ export default function UpdatePassword() {
     // console.log("password Data - ", data)
     try {
       await changePassword(token, data);
-    } catch (error) {
+      // Clear all input fields after changing the password
+      reset();
+      setShowOldPassword(false);
+      setShowNewPassword(false);
+      setShowConfirmPassword(false);
+    } 
+    catch (error) {
       console.log("ERROR MESSAGE - ", error.message);
     }
   };
@@ -34,8 +43,9 @@ export default function UpdatePassword() {
       <form onSubmit={handleSubmit(submitPasswordForm)}>
         <div className="my-10 flex flex-col gap-y-6 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
           <h2 className="text-lg font-semibold text-richblack-5">Password</h2>
-          <div className="flex flex-col gap-5 lg:flex-row">
-            <div className="relative flex flex-col gap-2 lg:w-[48%]">
+          {/* <div className="flex flex-col gap-5 lg:flex-row"> */}
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+            <div className="relative flex flex-col gap-2 w-full">
               <label htmlFor="oldPassword" className="lable-style">
                 Current Password
               </label>
@@ -63,7 +73,7 @@ export default function UpdatePassword() {
                 </span>
               )}
             </div>
-            <div className="relative flex flex-col gap-2 lg:w-[48%]">
+            <div className="relative flex flex-col gap-2 w-full">
               <label htmlFor="newPassword" className="lable-style">
                 New Password
               </label>
@@ -88,6 +98,41 @@ export default function UpdatePassword() {
               {errors.newPassword && (
                 <span className="-mt-1 text-[12px] text-yellow-100">
                   Please enter your New Password.
+                </span>
+              )}
+            </div>
+            <div className="relative flex flex-col gap-2 w-full">
+              <label htmlFor="confirmNewPassword" className="lable-style">
+                Confirm New Password
+              </label>
+
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                id="confirmNewPassword"
+                placeholder="Confirm New Password"
+                className="form-style"
+                {...register("confirmNewPassword", {
+                  required: true,
+                  validate: (value) =>
+                    value === watch("newPassword") || "Passwords do not match",
+                })}
+              />
+
+              <span
+                onClick={() => setShowConfirmPassword((prev) => !prev)}
+                className="absolute right-3 top-[38px] z-[10] cursor-pointer"
+              >
+                {showConfirmPassword ? (
+                  <AiOutlineEyeInvisible fontSize={24} fill="#AFB2BF" />
+                ) : (
+                  <AiOutlineEye fontSize={24} fill="#AFB2BF" />
+                )}
+              </span>
+
+              {errors.confirmNewPassword && (
+                <span className="-mt-1 text-[12px] text-yellow-100">
+                  {errors.confirmNewPassword.message ||
+                    "Please confirm your new password."}
                 </span>
               )}
             </div>

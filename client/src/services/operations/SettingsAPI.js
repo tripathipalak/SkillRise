@@ -33,11 +33,11 @@ export function updateDisplayPicture(token, formData) {
             if (!response.data.success) {
                 throw new Error(response.data.message)
             }
-            toast.success("Display Picture Updated Successfully")
+            toast.success("Profile Picture Updated Successfully")
             dispatch(setUser(response.data.data))
         } catch (error) {
             console.log("UPDATE_DISPLAY_PICTURE_API API ERROR............", error)
-            toast.error("Could Not Update Display Picture")
+            toast.error("Could Not Update Profile Picture")
         }
         toast.dismiss(toastId)
     }

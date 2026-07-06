@@ -44,7 +44,21 @@ export default function InstructorChart({ courses }) {
 
   // Options for the chart
   const options = {
+    responsive: true,
     maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: "right",
+        labels: {
+          color: "#E5E7EB",
+          padding: 15,
+          boxWidth: 18,
+          font: {
+            size: 13,
+          },
+        },
+      },
+    },
   };
 
   return (
@@ -74,7 +88,7 @@ export default function InstructorChart({ courses }) {
           Income
         </button>
       </div>
-      <div className="relative mx-auto aspect-square h-full w-full">
+      <div className="relative mx-auto h-[300px] w-full max-w-[450px]">
         {/* Render the Pie chart based on the selected chart */}
         <Pie
           data={currChart === "students" ? chartDataStudents : chartIncomeData}

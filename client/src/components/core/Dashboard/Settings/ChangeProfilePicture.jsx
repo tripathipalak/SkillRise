@@ -41,9 +41,14 @@ export default function ChangeProfilePicture() {
     try {
       console.log("uploading...");
       setLoading(true);
+
+      // console.log("Selected Image:", imageFile);
+
       const formData = new FormData();
       formData.append("displayPicture", imageFile);
-      // console.log("formdata", formData)
+
+      // console.log(formData.get("displayPicture"));
+
       dispatch(updateDisplayPicture(token, formData)).then(() => {
         setLoading(false);
       });
