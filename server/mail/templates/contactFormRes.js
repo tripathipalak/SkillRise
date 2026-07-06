@@ -31,11 +31,6 @@ exports.contactUsEmail = (
                 text-align: center;
             }
     
-            .logo {
-                max-width: 200px;
-                margin-bottom: 20px;
-            }
-    
             .message {
                 font-size: 18px;
                 font-weight: bold;
@@ -45,12 +40,13 @@ exports.contactUsEmail = (
             .body {
                 font-size: 16px;
                 margin-bottom: 20px;
+                text-align: left;
             }
     
             .cta {
                 display: inline-block;
                 padding: 10px 20px;
-                background-color: #FFD60A;
+                background: linear-gradient(90deg, #1FA2FF, #12D8FA, #A6FFCB);
                 color: #000000;
                 text-decoration: none;
                 border-radius: 5px;
@@ -74,8 +70,6 @@ exports.contactUsEmail = (
     
     <body>
         <div class="container">
-            <a href="https://studynotion-edtech-project.vercel.app"><img class="logo"
-                    src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo"></a>
             <div class="message">Contact Form Confirmation</div>
             <div class="body">
                 <p>Dear ${firstname} ${lastname},</p>
@@ -84,14 +78,13 @@ exports.contactUsEmail = (
                 <p>Here are the details you provided:</p>
                 <p>Name: ${firstname} ${lastname}</p>
                 <p>Email: ${email}</p>
-                <p>Phone Number: ${phoneNo}</p>
+                <p>Phone Number: ${countrycode ? `+${countrycode} ` : ""}${phoneNo}</p>
                 <p>Message: ${message}</p>
-                <p>We appreciate your interest and will get back to you shortly. </p>
+                <p>We appreciate your interest and will get back to you shortly.</p>
             </div>
             <div class="support">If you have any further questions or need immediate assistance, please feel free to reach
-                out to us at <a href="mailto:info@studynotion.com">info@studynotion.com</a>. We are here to help!</div>
+                out to us at <a href="mailto:support@skillrise.com">support@skillrise.com</a>. We are here to help!</div>
         </div>
-    </body>
-    
+    </body> 
     </html>`
 }
