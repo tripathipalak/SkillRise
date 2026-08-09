@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai";
+import {
+  AiOutlineMenu,
+  AiOutlineClose,
+  AiOutlineShoppingCart,
+} from "react-icons/ai";
 import { BsChevronDown } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { Link, matchPath, useLocation } from "react-router-dom";
@@ -19,6 +23,10 @@ function Navbar() {
 
   const [subLinks, setSubLinks] = useState([]);
   const [loading, setLoading] = useState(false);
+  // Controls the dropdown panel shown on small screens (below md breakpoint)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // Controls whether the "Catalog" sub-list is expanded inside the mobile menu
+  const [mobileCatalogOpen, setMobileCatalogOpen] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -26,15 +34,19 @@ function Navbar() {
       try {
         const res = await apiConnector("GET", categories.CATEGORIES_API);
         setSubLinks(res.data.data);
-      } 
-      catch (error) {
+      } catch (error) {
         console.log("Could not fetch Categories.", error);
       }
       setLoading(false);
     })();
   }, []);
 
-  // console.log("sub links", subLinks)
+  // Close the mobile menu automatically whenever the route changes,
+  // so it doesn't stay open after navigating to a new page.
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setMobileCatalogOpen(false);
+  }, [location.pathname]);
 
   const matchRoute = (route) => {
     return matchPath({ path: route }, location.pathname);
@@ -48,18 +60,17 @@ function Navbar() {
     >
       <div className="flex w-11/12 max-w-maxContent items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="pl-4 lg:pl-4">
-          {/* <img src={logo} alt="Logo" width={160} height={32} loading="lazy" /> */}
+        <Link to="/" className="lg:pl-4">
           <img
             src={logo}
             alt="SkillRise"
-            width={180}
-            height={28}
+            width={150}
+            height={22}
             loading="lazy"
-            className="pt-1"
+            className="pt-1 w-[150px] h-auto"
           />
         </Link>
-        {/* Navigation links */}
+        {/* Navigation links - desktop only */}
         <nav className="hidden md:block">
           <ul className="flex gap-x-6 text-richblack-25">
             {NavbarLinks.map((link, index) => (
@@ -121,7 +132,7 @@ function Navbar() {
             ))}
           </ul>
         </nav>
-        {/* Login / Signup / Dashboard */}
+        {/* Login / Signup / Dashboard - desktop only */}
         <div className="hidden items-center gap-x-4 md:flex">
           {user && user?.accountType !== ACCOUNT_TYPE.INSTRUCTOR && (
             <Link to="/dashboard/cart" className="relative">
@@ -149,10 +160,116 @@ function Navbar() {
           )}
           {token !== null && <ProfileDropdown />}
         </div>
-        <button className="mr-4 md:hidden">
-          <AiOutlineMenu fontSize={24} fill="#AFB2BF" />
+        {/* Hamburger - mobile only. Now actually toggles mobileMenuOpen. */}
+        <button
+          className="mr-4 md:hidden"
+          onClick={() => setMobileMenuOpen((prev) => !prev)}
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? (
+            <AiOutlineClose fontSize={24} fill="#AFB2BF" />
+          ) : (
+            <AiOutlineMenu fontSize={24} fill="#AFB2BF" />
+          )}
         </button>
       </div>
+
+      {/* Mobile dropdown panel - only rendered on small screens when open */}
+      {mobileMenuOpen && (
+        <div className="absolute left-0 top-14 w-full border-b border-richblack-700 bg-richblack-800 py-4 md:hidden">
+          <ul className="flex w-11/12 max-w-maxContent flex-col gap-y-4 mx-auto text-richblack-25">
+            {NavbarLinks.map((link, index) => (
+              <li key={index}>
+                {link.title === "Catalog" ? (
+                  <div>
+                    <button
+                      className="flex w-full items-center justify-between text-richblack-25"
+                      onClick={() => setMobileCatalogOpen((prev) => !prev)}
+                    >
+                      <span>{link.title}</span>
+                      <BsChevronDown
+                        className={`transition-transform ${mobileCatalogOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    {mobileCatalogOpen && (
+                      <div className="mt-3 flex flex-col gap-y-3 pl-4">
+                        {loading ? (
+                          <p className="text-sm text-richblack-400">Loading...</p>
+                        ) : subLinks && subLinks.length ? (
+                          subLinks
+                            ?.filter((subLink) => subLink?.courses?.length > 0)
+                            ?.map((subLink, i) => (
+                              <Link
+                                key={i}
+                                to={`/catalog/${subLink.name
+                                  .toLowerCase()
+                                  .replace(/\//g, "-")
+                                  .replace(/\s+/g, "-")}`}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="text-sm text-richblack-300"
+                              >
+                                {subLink.name}
+                              </Link>
+                            ))
+                        ) : (
+                          <p className="text-sm text-richblack-400">No Courses Found</p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    to={link?.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <p
+                      className={`${
+                        matchRoute(link?.path)
+                          ? "text-yellow-25"
+                          : "text-richblack-25"
+                      }`}
+                    >
+                      {link.title}
+                    </p>
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-4 flex w-11/12 max-w-maxContent flex-col gap-y-3 mx-auto border-t border-richblack-700 pt-4">
+            {user && user?.accountType !== ACCOUNT_TYPE.INSTRUCTOR && (
+              <Link
+                to="/dashboard/cart"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-x-2 text-richblack-25"
+              >
+                <AiOutlineShoppingCart className="text-xl" />
+                Cart {totalItems > 0 && `(${totalItems})`}
+              </Link>
+            )}
+            {token === null && (
+              <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                <button className="w-full rounded-[8px] border border-richblack-700 bg-richblack-700 px-[12px] py-[8px] text-richblack-100">
+                  Log in
+                </button>
+              </Link>
+            )}
+            {token === null && (
+              <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
+                <button className="w-full rounded-[8px] border border-richblack-700 bg-richblack-700 px-[12px] py-[8px] text-richblack-100">
+                  Sign up
+                </button>
+              </Link>
+            )}
+            {token !== null && (
+              <div onClick={() => setMobileMenuOpen(false)}>
+                <ProfileDropdown />
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

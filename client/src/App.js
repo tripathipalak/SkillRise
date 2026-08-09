@@ -18,6 +18,7 @@ import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/core/Auth/PrivateRoute";
 import Error from "./pages/Error"
 import Settings from "./components/core/Dashboard/Settings";
+import AITools from "./pages/AITools";
 
 import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses";
 import Cart from "./components/core/Dashboard/Cart";
@@ -48,6 +49,7 @@ function App() {
         <Route path="update-password/:id" element={<OpenRoute><UpdatePassword /></OpenRoute>} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/ai-tools" element={<AITools />} />
 
         <Route element={<PrivateRoute><Dashboard /></PrivateRoute>}>
           <Route path="dashboard/my-profile" element={<MyProfile />} />
