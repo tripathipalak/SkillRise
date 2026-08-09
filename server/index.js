@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin: "https://skill-rise-orcin.vercel.app",
+        origin: process.env.CORS_ORIGIN?.split(",") || "http://localhost:3000",
         credentials: true,
     })
 )
@@ -44,6 +44,7 @@ app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/course", courseRoutes);
 app.use("/api/v1/payment", paymentRoutes);
 app.use("/api/v1/reach", contactUsRoute);
+app.use("/api/v1/ai-tools", require("./routes/AITools"));
 
 //default route
 app.get("/", (req, res) => {
