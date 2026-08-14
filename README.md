@@ -2,68 +2,38 @@
 
 ### Learn. Build. Grow.
 
-SkillRise is a **full-stack e-learning platform** built with the MERN stack that brings together **course discovery, online learning, instructor course management, student progress tracking, payments, ratings & reviews, and AI-powered learning tools** in one application.
+SkillRise is a **full-stack AI-powered e-learning platform** built with the MERN stack that brings together **course discovery, online learning, instructor course management, student progress tracking, payments, ratings & reviews, and AI-powered learning tools** in one application.
 
-The platform supports two primary experiences:
+The platform provides two primary experiences:
 
-* 👨‍🎓 **Students** — discover courses, enroll, learn through structured content, track progress, and use AI learning tools.
-* 👨‍🏫 **Instructors** — create, manage, publish, and organize courses for learners.
+* 👨‍🎓 **Students** — discover courses, enroll, learn through structured content, track progress, and use AI-powered learning tools.
+* 👨‍🏫 **Instructors** — create, organize, manage, and publish courses for learners.
 
 ---
 
 ## 🌟 Overview
 
-SkillRise is designed around a simple idea:
+SkillRise is designed to provide a complete learning experience rather than simply offering course videos.
 
-> **Learning should not stop at watching a course.**
+Students can:
 
-Students can discover relevant courses, learn through structured video content, track their progress, review courses, and use AI-powered tools whenever they need additional help.
+**Discover → Enroll → Learn → Track Progress → Practice → Get AI Assistance → Improve**
 
-Instructors get dedicated workflows for creating and managing courses, including course metadata, categories, pricing, thumbnails, sections, and subsections.
+Instructors can create structured courses with sections, lessons, pricing, thumbnails, and other course information.
 
-```text
-                         ┌─────────────────────┐
-                         │      SkillRise      │
-                         └──────────┬──────────┘
-                                    │
-                 ┌──────────────────┴──────────────────┐
-                 │                                     │
-                 ▼                                     ▼
-        ┌─────────────────┐                   ┌─────────────────┐
-        │    STUDENT      │                   │   INSTRUCTOR    │
-        └────────┬────────┘                   └────────┬────────┘
-                 │                                     │
-        ┌────────▼────────┐                   ┌────────▼────────┐
-        │ Course Discovery│                   │ Course Creation  │
-        │ Enrollment      │                   │ Course Editing   │
-        │ Learning        │                   │ Course Content   │
-        │ Progress        │                   │ Publishing       │
-        │ Reviews         │                   │ Management       │
-        └────────┬────────┘                   └────────┬────────┘
-                 │                                     │
-                 └────────────────┬────────────────────┘
-                                  │
-                                  ▼
-                       ┌─────────────────────┐
-                       │   AI Learning Tools │
-                       ├─────────────────────┤
-                       │ AI Tutor            │
-                       │ Quiz Generator      │
-                       │ Learning Path        │
-                       └─────────────────────┘
-```
+The platform also integrates the **Google Gemini API** to provide AI-powered learning assistance directly inside the application.
 
 ---
 
-# ✨ Key Features
+## ✨ Key Features
 
-## 👨‍🎓 Student Experience
+### 👨‍🎓 Student Experience
 
-### 🔎 Course Discovery
+#### 🔎 Course Discovery
 
-Students can browse published courses and explore available learning content.
+Students can browse and explore available published courses.
 
-Courses include information such as:
+Courses provide information such as:
 
 * Course title
 * Description
@@ -72,57 +42,53 @@ Courses include information such as:
 * Price
 * Thumbnail
 * Ratings & reviews
-* Enrollment information
+* Course content
 
 ---
 
-### 📚 Structured Online Learning
+#### 📚 Structured Online Learning
 
-Courses are organized into a structured hierarchy:
+Courses are organized into structured sections and lessons.
 
 ```text
 Course
   │
   ├── Section
-  │     ├── Subsection / Video
-  │     ├── Subsection / Video
-  │     └── Subsection / Video
+  │     ├── Lesson / Video
+  │     ├── Lesson / Video
+  │     └── Lesson / Video
   │
   ├── Section
-  │     ├── Subsection / Video
-  │     └── Subsection / Video
+  │     ├── Lesson / Video
+  │     └── Lesson / Video
   │
   └── Section
-        └── Subsection / Video
+        └── Lesson / Video
 ```
 
-This allows instructors to organize educational material into logical learning modules.
+This allows instructors to organize educational content into logical learning modules.
 
 ---
 
-### ▶️ Course Progress Tracking
+#### ▶️ Course Progress Tracking
 
-SkillRise tracks a learner's progress through course content.
+SkillRise tracks learner progress across enrolled courses.
 
-Students can see which videos have been completed and continue learning from where they left off.
+Students can mark lessons as completed and continue learning from their current progress.
 
-The backend maintains course-specific progress associated with the authenticated learner.
-
----
-
-### ⭐ Ratings & Reviews
-
-Students can rate and review courses after learning from them.
-
-Reviews help other learners understand the quality and usefulness of a course before enrolling.
+Course progress is stored and associated with the authenticated learner.
 
 ---
 
-### 🛒 Course Enrollment & Payments
+#### ⭐ Ratings & Reviews
 
-SkillRise supports paid courses through an integrated payment workflow.
+Students can rate and review courses, helping other learners make informed decisions when selecting courses.
 
-The platform uses **Razorpay** to process course purchases and connect successful payments with course enrollment.
+---
+
+#### 🛒 Course Enrollment & Payments
+
+SkillRise supports paid course enrollment through **Razorpay**.
 
 ```text
 Student
@@ -131,7 +97,7 @@ Student
 Select Course
    │
    ▼
-Create Payment
+Create Payment Order
    │
    ▼
 Razorpay
@@ -150,118 +116,134 @@ Start Learning
 
 # 👨‍🏫 Instructor Experience
 
-SkillRise provides instructors with dedicated course-management capabilities.
+SkillRise provides instructors with dedicated course-management workflows.
 
-### ➕ Create Courses
+### ➕ Course Creation
 
-Instructors can create courses with:
+Instructors can create courses with information such as:
 
 * Course name
 * Description
 * Learning objectives
 * Price
-* Tags
 * Category
+* Tags
 * Thumbnail
 * Instructions
-* Course status
+* Course content
 
-Course thumbnails are uploaded using **Cloudinary**.
+Course media can be uploaded and managed through **Cloudinary**.
 
 ---
 
-### ✏️ Edit Courses
+### ✏️ Course Editing
 
-Instructors can update existing course information and replace course thumbnails when required.
+Instructors can update existing courses and modify course information or associated media.
 
 ---
 
 ### 📂 Course Content Management
 
-Courses can be divided into:
+Instructors can structure courses using:
 
 * Sections
 * Subsections
 * Video lessons
 
-This gives instructors control over how learning material is structured.
+This makes it possible to organize large courses into structured learning modules.
 
 ---
 
 ### 📋 Instructor Dashboard
 
-Instructors can access the courses they have created and manage their content from a dedicated dashboard.
+Instructors have access to a dedicated dashboard where they can manage the courses they have created.
 
 ---
 
 ### 🗑️ Course Management
 
-Instructors can delete courses along with their associated sections and subsections.
-
-The backend also handles related student-course relationships when courses are removed.
+Instructors can remove courses and their associated content through the course management workflow.
 
 ---
 
-# 🤖 AI Learning Tools
+# 🤖 AI-Powered Learning Tools
 
-One of SkillRise's standout features is its integrated **AI Learning Tools** section.
+One of SkillRise's major features is its integrated **AI Learning Tools**.
 
-Instead of requiring learners to leave the platform whenever they get stuck, SkillRise provides AI assistance directly inside the learning experience.
+SkillRise uses the **Google Gemini API** to provide AI-powered assistance directly within the learning experience.
+
+Instead of requiring students to leave the platform whenever they need help, learners can use AI tools to understand concepts, practice what they learned, and plan what to study next.
 
 The current AI toolkit includes:
 
----
+### 🧑‍🏫 AI Tutor
 
-## 🧑‍🏫 AI Tutor
+Students can ask questions about programming and technical concepts and receive explanations tailored to their learning level.
 
-Students can ask questions about programming or technical concepts and receive concise explanations tailored to their learning level.
+The AI Tutor can:
 
-The AI tutor can:
-
-* Explain technical concepts
-* Simplify difficult topics
+* Explain difficult concepts
+* Simplify technical topics
 * Provide examples
-* Adjust explanations based on learner level
+* Adapt explanations to learner level
+* Answer programming-related questions
 
 ```text
 Student Question
        │
        ▼
-    AI Tutor
+  Google Gemini API
        │
        ▼
-Concept Explanation
+AI-Generated Explanation
        │
        ▼
 Example / Clarification
 ```
 
+The backend sends the learner's question and selected difficulty level to Gemini and returns the generated explanation.
+
 ---
 
-## 📝 AI Quiz Generator
+### 📝 AI Quiz Generator
 
-Students can provide learning content and generate multiple-choice questions automatically.
+Students can provide learning material and automatically generate multiple-choice questions using Gemini.
 
-The AI generates:
+The generated quiz includes:
 
 * Questions
-* Multiple-choice options
-* Correct answers
-* Explanations
+* Four answer options
+* Correct answer
+* Explanation
 
-This allows learners to turn study material into practice questions without manually creating quizzes.
+The backend requests structured JSON output from Gemini so the generated quiz can be directly consumed by the application.
+
+```text
+Learning Content
+       │
+       ▼
+  Google Gemini API
+       │
+       ▼
+Generated Quiz
+       │
+       ├── Question
+       ├── Options
+       ├── Correct Answer
+       └── Explanation
+```
 
 ---
 
-## 🗺️ Personalized Learning Path
+### 🗺️ Personalized Learning Path
 
-SkillRise can generate a personalized learning roadmap based on:
+Students can enter:
 
-* Learning goal
+* Their learning goal
 * Current skills
 * Existing experience
 
-The AI creates a sequence of topics to study and explains why each topic belongs at that stage.
+Gemini then generates a sequenced learning path containing topics and an explanation of why each topic should be learned at that stage.
 
 ```text
 Learning Goal
@@ -269,10 +251,10 @@ Learning Goal
 Current Skills
       │
       ▼
-   AI Analysis
+Google Gemini API
       │
       ▼
-Personalized Path
+Personalized Learning Path
       │
       ├── Topic 1
       ├── Topic 2
@@ -280,6 +262,45 @@ Personalized Path
       ├── Topic 4
       └── Topic 5+
 ```
+
+The generated learning path is returned in structured JSON format for use within the application.
+
+---
+
+# 🧠 AI Architecture
+
+SkillRise uses a centralized AI helper on the backend to communicate with Google's Gemini API.
+
+```text
+                    ┌─────────────────┐
+                    │ React Frontend  │
+                    └────────┬────────┘
+                             │
+                         REST API
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ Express Backend │
+                    │                 │
+                    │ AI Controllers  │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ AI Helper       │
+                    │                 │
+                    │ askLLM()        │
+                    │ askLLMForJSON() │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ Google Gemini   │
+                    │      API        │
+                    └─────────────────┘
+```
+
+The application uses Gemini for both normal text responses and structured JSON generation. The backend sends the API key through an environment variable rather than hard-coding credentials.
 
 ---
 
@@ -295,19 +316,18 @@ Features include:
 * OTP verification
 * Password reset
 * Password update
-* Protected routes
 * JWT authentication
 * Cookie-based authentication
-
-The platform also supports different account types, including **Student** and **Instructor** workflows.
+* Protected routes
+* Student and Instructor account workflows
 
 ---
 
 # 👤 User Profiles
 
-Authenticated users can manage their profile information and account details.
+Authenticated users can manage their account and profile information.
 
-The application maintains user-specific information such as:
+The platform maintains user-specific information such as:
 
 * Personal details
 * Account type
@@ -319,62 +339,55 @@ The application maintains user-specific information such as:
 
 # 📊 Learning Dashboard
 
-Students can access a personalized dashboard containing their learning activity.
+Students have access to a personalized learning experience where they can access their enrolled courses and monitor their learning activity.
 
-The dashboard can surface:
-
-* Enrolled courses
-* Course progress
-* Learning content
-* Profile information
-* Relevant learning activity
-
-Instructors have their own management-oriented workflow for the courses they create.
+Instructors have a separate workflow focused on course creation and management.
 
 ---
 
-# 🧠 Application Architecture
+# 🏗️ System Architecture
 
 SkillRise follows a full-stack client-server architecture.
 
 ```text
-                        ┌───────────────────┐
-                        │      Browser      │
-                        └─────────┬─────────┘
-                                  │
-                                  ▼
-                        ┌───────────────────┐
-                        │  React Frontend   │
-                        │                   │
-                        │ Components        │
-                        │ Pages             │
-                        │ Redux             │
-                        │ Services          │
-                        └─────────┬─────────┘
-                                  │
+                         ┌───────────────────┐
+                         │       User        │
+                         └─────────┬─────────┘
+                                   │
+                                   ▼
+                         ┌───────────────────┐
+                         │  React Frontend   │
+                         │                   │
+                         │ React             │
+                         │ Redux             │
+                         │ Tailwind CSS      │
+                         │ React Router      │
+                         └─────────┬─────────┘
+                                   │
                               REST APIs
-                                  │
-                                  ▼
-                        ┌───────────────────┐
-                        │ Express + Node.js │
-                        │                   │
-                        │ Routes            │
-                        │ Controllers       │
-                        │ Middleware        │
-                        │ Authentication    │
-                        └───────┬─────┬─────┘
-                                │     │
-                   ┌────────────┘     └────────────┐
-                   ▼                               ▼
-          ┌─────────────────┐             ┌─────────────────┐
-          │     MongoDB     │             │ External        │
-          │                 │             │ Services        │
-          │ Users           │             │                 │
-          │ Courses         │             │ Cloudinary      │
-          │ Sections        │             │ Razorpay        │
-          │ Progress        │             │ AI Services     │
-          │ Reviews         │             │ Email           │
-          └─────────────────┘             └─────────────────┘
+                                   │
+                                   ▼
+                         ┌───────────────────┐
+                         │ Express + Node.js │
+                         │                   │
+                         │ Routes            │
+                         │ Controllers       │
+                         │ Middleware        │
+                         │ Authentication    │
+                         │ AI Services       │
+                         └──────┬──────┬─────┘
+                                │      │
+                ┌───────────────┘      └─────────────────┐
+                ▼                                        ▼
+       ┌─────────────────┐                      ┌─────────────────┐
+       │     MongoDB     │                      │ External        │
+       │                 │                      │ Services        │
+       │ Users           │                      │                 │
+       │ Courses         │                      │ Gemini API      │
+       │ Sections        │                      │ Cloudinary      │
+       │ Progress        │                      │ Razorpay        │
+       │ Reviews         │                      │ Email Services  │
+       └─────────────────┘                      └─────────────────┘
 ```
 
 ---
@@ -383,9 +396,8 @@ SkillRise follows a full-stack client-server architecture.
 
 ## Frontend
 
-* **React 19**
+* **React**
 * **Redux Toolkit**
-* **React Redux**
 * **React Router**
 * **Axios**
 * **Tailwind CSS**
@@ -399,8 +411,6 @@ SkillRise follows a full-stack client-server architecture.
 * **React Icons**
 * **React Player**
 
-The frontend is built around reusable components, page-level workflows, Redux state management, and responsive UI components.
-
 ---
 
 ## Backend
@@ -412,26 +422,28 @@ The frontend is built around reusable components, page-level workflows, Redux st
 * **JWT**
 * **bcrypt / bcryptjs**
 * **Cookie Parser**
-* **Multer / Express File Upload**
+* **Express File Upload**
 * **Cloudinary**
 * **Nodemailer**
 * **Razorpay**
 * **Node Schedule**
+* **Axios**
 * **dotenv**
 
-The backend follows a modular structure separating controllers, routes, models, middleware, configuration, mail templates, and utilities.
+The current backend package configuration includes these core dependencies, including Axios for API communication and Razorpay, Cloudinary, MongoDB/Mongoose, authentication, email, and scheduling libraries.
 
 ---
 
-## AI
+## 🤖 AI
 
-SkillRise integrates AI capabilities for:
+* **Google Gemini API**
+* Gemini-powered AI Tutor
+* AI Quiz Generator
+* Personalized Learning Path Generator
+* Structured JSON generation
+* Backend AI helper abstraction
 
-* AI tutoring
-* Quiz generation
-* Personalized learning paths
-
-The AI layer uses structured prompts and JSON responses where structured output is required, allowing AI-generated learning content to be consumed directly by the application.
+SkillRise currently communicates with Gemini through the Gemini REST API using Axios and the `GEMINI_API_KEY` environment variable.
 
 ---
 
@@ -466,91 +478,85 @@ SkillRise/
 │   ├── models/
 │   ├── routes/
 │   ├── utils/
+│   │   └── aiToolsHelper.js
 │   ├── index.js
 │   └── package.json
 │
 └── README.md
 ```
 
-The repository currently uses separate `client` and `server` applications, with dedicated frontend pages/components and a modular backend structure.
-
 ---
 
 # 🔄 How SkillRise Works
 
-## 1. Create an Account
+### 1. Create an Account
 
-A user registers and verifies their account.
+Users register and verify their account before accessing protected features.
 
 ```text
 Signup
   ↓
-Email / OTP Verification
+OTP / Email Verification
   ↓
-Authenticated Account
+Authenticated User
 ```
 
 ---
 
-## 2. Choose Your Learning Path
+### 2. Discover Courses
 
-Students browse available courses through the catalog and select the course they want to learn.
+Students browse available courses and select the content they want to learn.
 
 ---
 
-## 3. Enroll in a Course
+### 3. Enroll
 
 For paid courses:
 
 ```text
 Course
   ↓
-Payment
+Payment Order
   ↓
-Razorpay Verification
+Razorpay
+  ↓
+Payment Verification
   ↓
 Enrollment
 ```
 
 ---
 
-## 4. Start Learning
+### 4. Learn
 
-Students access the course content organized into sections and video lessons.
-
----
-
-## 5. Track Progress
-
-Completed lessons are recorded so learners can monitor their progress and continue learning efficiently.
+Students access structured course content organized into sections and video lessons.
 
 ---
 
-## 6. Use AI Assistance
+### 5. Track Progress
 
-Whenever a learner needs help, they can use:
+Completed lessons are recorded so learners can monitor their progress and continue learning from where they stopped.
+
+---
+
+### 6. Get AI Assistance
+
+Students can use Gemini-powered tools whenever they need additional help:
 
 ```text
-AI Tutor
-    │
-    ├── Ask a question
-    │
-    ▼
-AI Quiz Generator
-    │
-    ├── Practice from learning content
-    │
-    ▼
-Learning Path
-    │
-    └── Build a personalized roadmap
+             AI Learning Tools
+                    │
+        ┌───────────┼───────────┐
+        ▼           ▼           ▼
+      Tutor        Quiz      Learning
+                  Generator     Path
 ```
 
 ---
 
-## 7. Review & Improve
+### 7. Rate & Review
 
-After completing or progressing through courses, learners can rate and review their learning experience.
+Students can provide ratings and reviews for courses, helping other learners make informed decisions.
 
 ---
 
@@ -559,53 +565,52 @@ After completing or progressing through courses, learners can rate and review th
 SkillRise integrates Razorpay for course payments.
 
 ```text
-             ┌──────────────┐
-             │    Student   │
-             └───────┬──────┘
-                     │
-                     ▼
-             Select Paid Course
-                     │
-                     ▼
-             Create Payment Order
-                     │
-                     ▼
-                Razorpay
-                     │
-                     ▼
-             Payment Completed
-                     │
-                     ▼
-           Backend Verification
-                     │
-                     ▼
-              Course Enrolled
+Student
+   │
+   ▼
+Select Paid Course
+   │
+   ▼
+Create Payment Order
+   │
+   ▼
+Razorpay Checkout
+   │
+   ▼
+Payment Completed
+   │
+   ▼
+Server-side Verification
+   │
+   ▼
+Course Enrollment
 ```
-
-Payment-related backend functionality is separated into its own controller and route modules.
 
 ---
 
 # ☁️ Media Management
 
-Course thumbnails and uploaded media are handled using **Cloudinary**.
+SkillRise uses **Cloudinary** for course media management.
 
-The backend uploads course thumbnails to Cloudinary and stores the resulting secure URL with the course information.
+Course thumbnails and uploaded media are stored using Cloudinary, while the resulting URLs are associated with the relevant course data.
 
 ---
 
 # 🔒 Security
 
-SkillRise uses several mechanisms to protect user accounts and application data:
+SkillRise uses several security practices:
 
 * JWT-based authentication
-* Protected backend routes
+* Protected API routes
 * Cookie-based authentication
 * Password hashing
 * OTP/email verification
 * Environment variables for secrets
 * Server-side payment verification
 * User-specific course and progress access
+* API key protection for Gemini
+
+> Never commit `.env` files or expose API keys in the repository.
 
 ---
 
@@ -620,7 +625,7 @@ Make sure you have:
 * **MongoDB / MongoDB Atlas**
 * **Cloudinary account**
 * **Razorpay account** for payment functionality
-* Required AI API credentials
+* **Google Gemini API key**
 * A code editor such as VS Code
 
 ---
@@ -655,7 +660,13 @@ npm install
 
 ## 4. Configure Environment Variables
 
-Create a `.env` file inside the `server` directory.
+Create:
+
+```text
+server/.env
+```
+
+Add the required credentials.
 
 Example:
 
@@ -665,6 +676,8 @@ PORT=4000
 MONGODB_URL=your_mongodb_connection_string
 
 JWT_SECRET=your_jwt_secret
+
+GEMINI_API_KEY=your_gemini_api_key
 
 CLOUD_NAME=your_cloudinary_cloud_name
 API_KEY=your_cloudinary_api_key
@@ -676,11 +689,9 @@ RAZORPAY_SECRET=your_razorpay_secret
 MAIL_HOST=your_mail_host
 MAIL_USER=your_mail_user
 MAIL_PASS=your_mail_password
-
-AI_API_KEY=your_ai_api_key
 ```
 
-> Use the exact environment-variable names expected by your local configuration files. Never commit your `.env` file or expose credentials publicly.
+> Use the exact variable names expected by your local configuration. The AI helper in the current repository reads the Gemini credential from `GEMINI_API_KEY`.
 
 ---
 
@@ -710,57 +721,61 @@ cd client
 npm start
 ```
 
-The React development server will start the frontend application.
-
 ---
 
-# 🏗️ Development Architecture
+# 🧪 AI Feature Flow
 
-The backend is organized into dedicated modules for different business responsibilities:
+### AI Tutor
 
 ```text
-server/
-│
-├── controllers/
-│   ├── Auth
-│   ├── Course
-│   ├── Payments
-│   ├── Profile
-│   ├── Rating & Review
-│   ├── Course Progress
-│   └── AI Tools
-│
-├── models/
-│   ├── User
-│   ├── Course
-│   ├── Section
-│   ├── SubSection
-│   ├── Category
-│   ├── CourseProgress
-│   └── Rating & Review
-│
-├── routes/
-│   ├── User
-│   ├── Course
-│   ├── Payments
-│   ├── Profile
-│   ├── Contact
-│   └── AI Tools
-│
-└── utils/
-    ├── Authentication
-    ├── AI helpers
-    ├── Cloudinary
-    └── Utility functions
+Question
+   ↓
+Frontend
+   ↓
+Backend API
+   ↓
+Gemini API
+   ↓
+Generated Explanation
+   ↓
+Frontend
 ```
 
-This separation keeps authentication, course management, payments, progress tracking, and AI functionality independently maintainable.
+### AI Quiz Generator
+
+```text
+Learning Content
+   ↓
+Backend
+   ↓
+Gemini API
+   ↓
+Structured JSON
+   ↓
+Quiz Interface
+```
+
+### Learning Path Generator
+
+```text
+Goal + Current Skills
+   ↓
+Backend
+   ↓
+Gemini API
+   ↓
+Structured JSON
+   ↓
+Personalized Learning Path
+```
+
+The current implementation uses Gemini's JSON response mode for the quiz and learning-path workflows, allowing the server to parse the model output directly into application data.
 
 ---
 
 # 📸 Screenshots
 
-Add screenshots of the actual application here to make the repository much more visually appealing.
+Add screenshots of the actual application here.
 
 ### 🏠 Home Page
 
@@ -808,7 +823,7 @@ Add screenshots of the actual application here to make the repository much more 
 
 # 🚀 Future Enhancements
 
-Potential improvements for SkillRise include:
+Potential improvements include:
 
 * 🎯 AI-powered course recommendations
 * 📊 Advanced learner analytics
@@ -821,20 +836,21 @@ Potential improvements for SkillRise include:
 * 🧑‍🤝‍🧑 Collaborative learning
 * 🧠 More advanced AI learning assistants
 * 📈 Instructor analytics dashboard
+* 🎓 AI-powered assessment and feedback
 
 ---
 
 # 💡 What Makes SkillRise Different?
 
-SkillRise combines the functionality of a modern learning marketplace with an integrated AI learning assistant.
+SkillRise combines a complete e-learning workflow with AI-powered learning assistance.
 
-Instead of stopping at:
+A traditional learning platform might provide:
 
 ```text
 Browse → Buy → Watch
 ```
 
-SkillRise expands the experience to:
+SkillRise extends that experience:
 
 ```text
 Discover
@@ -854,7 +870,9 @@ Build Learning Path
 Improve
 ```
 
-The AI features are therefore not treated as a separate chatbot. They are designed as **learning utilities integrated directly into the educational workflow**.
+The AI tools are integrated into the learning workflow rather than being treated as a standalone chatbot.
+
+**Google Gemini API powers the intelligent learning features**, including concept explanations, automated quiz generation, and personalized learning paths.
 
 ---
 
@@ -868,13 +886,13 @@ Full-Stack Developer interested in **MERN development, AI-powered applications, 
 
 ### GitHub
 
-[github.com/tripathipalak](https://github.com/tripathipalak)
+https://github.com/tripathipalak
 
 ---
 
 # ⭐ Support
 
-If you found SkillRise useful or interesting, consider giving the repository a ⭐.
+If you found SkillRise interesting, consider giving the repository a ⭐.
 
 Feedback and suggestions are always welcome.
 
