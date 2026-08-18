@@ -12,6 +12,7 @@ const cors = require("cors");
 const { cloudinaryConnect } = require("./config/cloudinary");
 const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
+const { authLimiter, aiLimiter, paymentLimiter } = require("./middlewares/rateLimiter");
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
@@ -39,12 +40,12 @@ app.use(
 cloudinaryConnect();
 
 //routes
-app.use("/api/v1/auth", userRoutes);
+app.use("/api/v1/auth", authLimiter, userRoutes);
 app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/course", courseRoutes);
-app.use("/api/v1/payment", paymentRoutes);
+app.use("/api/v1/payment", paymentLimiter, paymentRoutes);
 app.use("/api/v1/reach", contactUsRoute);
-app.use("/api/v1/ai-tools", require("./routes/AITools"));
+app.use("/api/v1/ai-tools", aiLimiter, require("./routes/AITools"));
 
 //default route
 app.get("/", (req, res) => {
