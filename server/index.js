@@ -12,7 +12,9 @@ const cors = require("cors");
 const { cloudinaryConnect } = require("./config/cloudinary");
 const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
+const helmet = require("helmet");
 const { authLimiter, aiLimiter, paymentLimiter } = require("./middlewares/rateLimiter");
+const { sanitizeBody } = require("./middlewares/sanitize");
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
@@ -21,7 +23,9 @@ const PORT = process.env.PORT || 4000;
 database.connect();
 
 //middlewares
+app.use(helmet()); // sets secure HTTP headers (XSS, clickjacking, etc.)
 app.use(express.json());
+app.use(sanitizeBody); // strips $ / . keys from req.body to prevent NoSQL injection
 app.use(cookieParser());
 app.use(
     cors({
