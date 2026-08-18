@@ -11,7 +11,7 @@ The platform provides two primary experiences:
 
 ---
 
-## 🌟 Overview
+# 🌟 Overview
 
 SkillRise is designed to provide a complete learning experience rather than simply offering course videos.
 
@@ -25,11 +25,11 @@ The platform also integrates the **Google Gemini API** to provide AI-powered lea
 
 ---
 
-## ✨ Key Features
+# ✨ Key Features
 
-### 👨‍🎓 Student Experience
+## 👨‍🎓 Student Experience
 
-#### 🔎 Course Discovery
+### 🔎 Course Discovery
 
 Students can browse and explore available published courses.
 
@@ -46,7 +46,7 @@ Courses provide information such as:
 
 ---
 
-#### 📚 Structured Online Learning
+### 📚 Structured Online Learning
 
 Courses are organized into structured sections and lessons.
 
@@ -70,7 +70,7 @@ This allows instructors to organize educational content into logical learning mo
 
 ---
 
-#### ▶️ Course Progress Tracking
+### ▶️ Course Progress Tracking
 
 SkillRise tracks learner progress across enrolled courses.
 
@@ -80,13 +80,13 @@ Course progress is stored and associated with the authenticated learner.
 
 ---
 
-#### ⭐ Ratings & Reviews
+### ⭐ Ratings & Reviews
 
 Students can rate and review courses, helping other learners make informed decisions when selecting courses.
 
 ---
 
-#### 🛒 Course Enrollment & Payments
+### 🛒 Course Enrollment & Payments
 
 SkillRise supports paid course enrollment through **Razorpay**.
 
@@ -176,7 +176,16 @@ Instead of requiring students to leave the platform whenever they need help, lea
 
 The current AI toolkit includes:
 
-### 🧑‍🏫 AI Tutor
+* 🧑‍🏫 AI Tutor
+* 📝 AI Quiz Generator
+* 🗺️ Personalized Learning Path
+* 🔐 Authenticated AI API access
+
+All AI endpoints are protected using JWT authentication, ensuring that AI tools can only be accessed by authenticated users.
+
+---
+
+## 🧑‍🏫 AI Tutor
 
 Students can ask questions about programming and technical concepts and receive explanations tailored to their learning level.
 
@@ -192,7 +201,13 @@ The AI Tutor can:
 Student Question
        │
        ▼
-  Google Gemini API
+JWT Authentication
+       │
+       ▼
+Express Backend
+       │
+       ▼
+Google Gemini API
        │
        ▼
 AI-Generated Explanation
@@ -205,7 +220,7 @@ The backend sends the learner's question and selected difficulty level to Gemini
 
 ---
 
-### 📝 AI Quiz Generator
+## 📝 AI Quiz Generator
 
 Students can provide learning material and automatically generate multiple-choice questions using Gemini.
 
@@ -222,7 +237,13 @@ The backend requests structured JSON output from Gemini so the generated quiz ca
 Learning Content
        │
        ▼
-  Google Gemini API
+JWT Authentication
+       │
+       ▼
+Express Backend
+       │
+       ▼
+Google Gemini API
        │
        ▼
 Generated Quiz
@@ -235,7 +256,7 @@ Generated Quiz
 
 ---
 
-### 🗺️ Personalized Learning Path
+## 🗺️ Personalized Learning Path
 
 Students can enter:
 
@@ -249,6 +270,12 @@ Gemini then generates a sequenced learning path containing topics and an explana
 Learning Goal
       +
 Current Skills
+      │
+      ▼
+JWT Authentication
+      │
+      ▼
+Express Backend
       │
       ▼
 Google Gemini API
@@ -272,35 +299,38 @@ The generated learning path is returned in structured JSON format for use within
 SkillRise uses a centralized AI helper on the backend to communicate with Google's Gemini API.
 
 ```text
-                    ┌─────────────────┐
-                    │ React Frontend  │
-                    └────────┬────────┘
-                             │
+                     ┌─────────────────┐
+                     │ React Frontend  │
+                     └────────┬────────┘
+                              │
                          REST API
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │ Express Backend │
-                    │                 │
-                    │ AI Controllers  │
-                    └────────┬────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │ AI Helper       │
-                    │                 │
-                    │ askLLM()        │
-                    │ askLLMForJSON() │
-                    └────────┬────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │ Google Gemini   │
-                    │      API        │
-                    └─────────────────┘
+                              │
+                              ▼
+                     ┌─────────────────┐
+                     │ Express Backend │
+                     │                 │
+                     │ Auth Middleware │
+                     │ AI Controllers  │
+                     └────────┬────────┘
+                              │
+                              ▼
+                     ┌─────────────────┐
+                     │ AI Helper       │
+                     │                 │
+                     │ askLLM()        │
+                     │ askLLMForJSON() │
+                     └────────┬────────┘
+                              │
+                              ▼
+                     ┌─────────────────┐
+                     │ Google Gemini   │
+                     │      API        │
+                     └─────────────────┘
 ```
 
 The application uses Gemini for both normal text responses and structured JSON generation. The backend sends the API key through an environment variable rather than hard-coding credentials.
+
+AI routes also use JWT authentication so that AI operations are restricted to authenticated users.
 
 ---
 
@@ -317,9 +347,13 @@ Features include:
 * Password reset
 * Password update
 * JWT authentication
+* Bearer token authentication for protected API requests
 * Cookie-based authentication
 * Protected routes
 * Student and Instructor account workflows
+* Authenticated AI endpoints
+
+Protected API requests use authentication tokens to verify the identity of the requesting user before allowing access to protected functionality.
 
 ---
 
@@ -364,7 +398,7 @@ SkillRise follows a full-stack client-server architecture.
                          │ React Router      │
                          └─────────┬─────────┘
                                    │
-                              REST APIs
+                               REST APIs
                                    │
                                    ▼
                          ┌───────────────────┐
@@ -374,6 +408,9 @@ SkillRise follows a full-stack client-server architecture.
                          │ Controllers       │
                          │ Middleware        │
                          │ Authentication    │
+                         │ Rate Limiting     │
+                         │ Request Sanitizer │
+                         │ Security Headers  │
                          │ AI Services       │
                          └──────┬──────┬─────┘
                                 │      │
@@ -429,8 +466,10 @@ SkillRise follows a full-stack client-server architecture.
 * **Node Schedule**
 * **Axios**
 * **dotenv**
+* **Helmet**
+* **Express Rate Limit**
 
-The current backend package configuration includes these core dependencies, including Axios for API communication and Razorpay, Cloudinary, MongoDB/Mongoose, authentication, email, and scheduling libraries.
+The backend includes authentication middleware, request sanitization, rate limiting, secure HTTP headers, payment verification, and AI service integration.
 
 ---
 
@@ -442,6 +481,7 @@ The current backend package configuration includes these core dependencies, incl
 * Personalized Learning Path Generator
 * Structured JSON generation
 * Backend AI helper abstraction
+* JWT-protected AI endpoints
 
 SkillRise currently communicates with Gemini through the Gemini REST API using Axios and the `GEMINI_API_KEY` environment variable.
 
@@ -475,6 +515,9 @@ SkillRise/
 │   ├── mail/
 │   │   └── templates/
 │   ├── middlewares/
+│   │   ├── auth.js
+│   │   ├── rateLimiter.js
+│   │   └── sanitize.js
 │   ├── models/
 │   ├── routes/
 │   ├── utils/
@@ -541,16 +584,21 @@ Completed lessons are recorded so learners can monitor their progress and contin
 
 ### 6. Get AI Assistance
 
-Students can use Gemini-powered tools whenever they need additional help:
+Students can use Gemini-powered tools whenever they need additional help.
 
 ```text
-             AI Learning Tools
-                    │
-        ┌───────────┼───────────┐
-        ▼           ▼           ▼
-      Tutor        Quiz      Learning
-                  Generator     Path
+              AI Learning Tools
+                     │
+            ┌────────┼────────┐
+            ▼        ▼        ▼
+          Tutor     Quiz    Learning
+                   Generator   Path
+                     │
+                     ▼
+              JWT Authentication
 ```
+
+AI requests are authenticated before being processed by the backend.
 
 ---
 
@@ -586,6 +634,8 @@ Server-side Verification
 Course Enrollment
 ```
 
+Payment routes are protected with rate limiting to reduce excessive or abusive payment requests.
+
 ---
 
 # ☁️ Media Management
@@ -598,17 +648,52 @@ Course thumbnails and uploaded media are stored using Cloudinary, while the resu
 
 # 🔒 Security
 
-SkillRise uses several security practices:
+SkillRise implements multiple backend security measures to protect user accounts, APIs, AI functionality, and payment-related operations.
+
+### 🔑 Authentication
 
 * JWT-based authentication
+* Bearer token authentication for protected API requests
 * Protected API routes
 * Cookie-based authentication
 * Password hashing
 * OTP/email verification
-* Environment variables for secrets
-* Server-side payment verification
-* User-specific course and progress access
+* Authenticated AI endpoints
+
+### 🛡️ API Security
+
+* **Helmet** for secure HTTP security headers
+* **Request sanitization** to reduce NoSQL injection risks
+* **Rate limiting** using `express-rate-limit`
+* Environment variables for sensitive credentials
 * API key protection for Gemini
+* Server-side payment verification
+
+### 🚦 Rate Limiting
+
+Different rate limits are applied according to the sensitivity and resource cost of each route category:
+
+| Route Category | Limit                    |
+| -------------- | ------------------------ |
+| Authentication | 10 requests / 15 minutes |
+| AI Tools       | 20 requests / 1 minute   |
+| Payment        | 5 requests / 10 minutes  |
+
+This helps reduce brute-force attempts, API abuse, excessive AI requests, and repeated payment-related requests.
+
+### 🧹 Request Sanitization
+
+SkillRise uses custom request sanitization middleware to remove potentially unsafe MongoDB operator-style keys containing `$` and `.` from incoming request data.
+
+This provides an additional layer of protection against NoSQL injection attempts.
+
+### 🪖 Security Headers
+
+Helmet is used to configure secure HTTP response headers and reduce common web security risks.
+
+### 🧹 Production Code Cleanup
+
+Debugging `console.log()` statements used during development and testing have been removed from authentication, payment, and authentication middleware code to keep production code cleaner.
 
 > Never commit `.env` files or expose API keys in the repository.
 
@@ -655,6 +740,8 @@ npm install
 cd ../server
 npm install
 ```
+
+`npm install` installs the backend dependencies required by SkillRise, including security-related packages such as `helmet` and `express-rate-limit`.
 
 ---
 
@@ -725,14 +812,18 @@ npm start
 
 # 🧪 AI Feature Flow
 
-### AI Tutor
+## AI Tutor
 
 ```text
 Question
    ↓
 Frontend
    ↓
-Backend API
+JWT Token
+   ↓
+Authentication Middleware
+   ↓
+Backend AI Controller
    ↓
 Gemini API
    ↓
@@ -741,10 +832,18 @@ Generated Explanation
 Frontend
 ```
 
-### AI Quiz Generator
+---
+
+## AI Quiz Generator
 
 ```text
 Learning Content
+   ↓
+Frontend
+   ↓
+JWT Token
+   ↓
+Authentication Middleware
    ↓
 Backend
    ↓
@@ -755,10 +854,18 @@ Structured JSON
 Quiz Interface
 ```
 
-### Learning Path Generator
+---
+
+## Learning Path Generator
 
 ```text
 Goal + Current Skills
+   ↓
+Frontend
+   ↓
+JWT Token
+   ↓
+Authentication Middleware
    ↓
 Backend
    ↓
@@ -842,7 +949,7 @@ Potential improvements include:
 
 # 💡 What Makes SkillRise Different?
 
-SkillRise combines a complete e-learning workflow with AI-powered learning assistance.
+SkillRise combines a complete e-learning workflow with AI-powered learning assistance and backend security measures.
 
 A traditional learning platform might provide:
 
@@ -871,6 +978,8 @@ Improve
 ```
 
 The AI tools are integrated into the learning workflow rather than being treated as a standalone chatbot.
+
+The platform also uses backend security practices such as JWT authentication, rate limiting, secure HTTP headers, and request sanitization to protect application functionality.
 
 **Google Gemini API powers the intelligent learning features**, including concept explanations, automated quiz generation, and personalized learning paths.
 
@@ -901,4 +1010,3 @@ Feedback and suggestions are always welcome.
 ## 📄 License
 
 This project is developed for educational, portfolio, and demonstration purposes.
-
