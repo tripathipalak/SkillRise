@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { generateQuizFromText } from "../../../services/aiToolsAPI";
 
 export default function QuizTool() {
+  const { token } = useSelector((state) => state.auth);
   const [content, setContent] = useState("");
   const [quiz, setQuiz] = useState(null);
   const [revealed, setRevealed] = useState({});
@@ -10,7 +12,7 @@ export default function QuizTool() {
 
   const handleGenerate = async () => {
     setLoading(true);
-    const result = await generateQuizFromText(content);
+    const result = await generateQuizFromText(content, token);
     if (result) {
       setQuiz(result);
       setRevealed({});

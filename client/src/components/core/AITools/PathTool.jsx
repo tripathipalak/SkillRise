@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { generateLearningPath } from "../../../services/aiToolsAPI";
 
 export default function PathTool() {
+  const { token } = useSelector((state) => state.auth);
   const [goal, setGoal] = useState("");
   const [currentSkills, setCurrentSkills] = useState("");
   const [path, setPath] = useState(null);
@@ -9,7 +11,7 @@ export default function PathTool() {
 
   const handleGenerate = async () => {
     setLoading(true);
-    const result = await generateLearningPath(goal, currentSkills || "none");
+    const result = await generateLearningPath(goal, currentSkills || "none", token);
     if (result) setPath(result.path);
     setLoading(false);
   };

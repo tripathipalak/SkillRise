@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import ReactMarkdown from "react-markdown";
 import { explainConcept } from "../../../services/aiToolsAPI";
 
@@ -21,6 +22,7 @@ const markdownComponents = {
 };
 
 export default function TutorTool() {
+  const { token } = useSelector((state) => state.auth);
   const [question, setQuestion] = useState("");
   const [level, setLevel] = useState("beginner");
   const [messages, setMessages] = useState([]);
@@ -33,7 +35,7 @@ export default function TutorTool() {
     setQuestion("");
     setLoading(true);
 
-    const result = await explainConcept(userQuestion, level);
+    const result = await explainConcept(userQuestion, level, token);
     if (result) {
       setMessages((prev) => [...prev, { role: "ai", text: result.answer }]);
     }

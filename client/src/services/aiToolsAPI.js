@@ -3,11 +3,15 @@ import { toast } from "react-hot-toast"
 
 const BASE_URL = process.env.REACT_APP_BASE_URL + "/ai-tools"
 
-export const generateQuizFromText = async (content) => {
+export const generateQuizFromText = async (content, token) => {
     const toastId = toast.loading("Generating quiz...")
     let result = null
     try {
-        const response = await axios.post(`${BASE_URL}/generateQuiz`, { content })
+        const response = await axios.post(
+            `${BASE_URL}/generateQuiz`,
+            { content },
+            { headers: { Authorization: `Bearer ${token}` } }
+        )
         if (!response?.data?.success) throw new Error(response?.data?.message)
         result = response.data.data
     } catch (error) {
@@ -17,10 +21,14 @@ export const generateQuizFromText = async (content) => {
     return result
 }
 
-export const explainConcept = async (question, level) => {
+export const explainConcept = async (question, level, token) => {
     let result = null
     try {
-        const response = await axios.post(`${BASE_URL}/explainConcept`, { question, level })
+        const response = await axios.post(
+            `${BASE_URL}/explainConcept`,
+            { question, level },
+            { headers: { Authorization: `Bearer ${token}` } }
+        )
         if (!response?.data?.success) throw new Error(response?.data?.message)
         result = response.data.data
     } catch (error) {
@@ -29,11 +37,15 @@ export const explainConcept = async (question, level) => {
     return result
 }
 
-export const generateLearningPath = async (goal, currentSkills) => {
+export const generateLearningPath = async (goal, currentSkills, token) => {
     const toastId = toast.loading("Building your learning path...")
     let result = null
     try {
-        const response = await axios.post(`${BASE_URL}/generateLearningPath`, { goal, currentSkills })
+        const response = await axios.post(
+            `${BASE_URL}/generateLearningPath`,
+            { goal, currentSkills },
+            { headers: { Authorization: `Bearer ${token}` } }
+        )
         if (!response?.data?.success) throw new Error(response?.data?.message)
         result = response.data.data
     } catch (error) {
