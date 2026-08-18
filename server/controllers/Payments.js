@@ -60,7 +60,6 @@ exports.capturePayment = async (req, res) => {
   try {
     // Initiate the payment using Razorpay
     const paymentResponse = await instance.orders.create(options)
-    console.log(paymentResponse)
     res.json({
       success: true,
       data: paymentResponse,
@@ -156,10 +155,6 @@ const enrollStudents = async (courses, userId, res) => {
         { $addToSet: { studentsEnrolled: userId, }, },
         { new: true }
       )
-
-      console.log("Course after update:");
-      console.log("Updated Course:");
-      console.log(enrolledCourse.studentsEnrolled);
 
       if (!enrolledCourse) {
         return res
