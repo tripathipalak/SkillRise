@@ -17,7 +17,7 @@
 <p align="center"> <a href="https://skill-rise-orcin.vercel.app/"> 🌐 <strong>Live Demo</strong> </a> &nbsp; • &nbsp; <a href="https://github.com/tripathipalak/SkillRise"> ⭐ <strong>GitHub Repository</strong> </a> </p>
 
 
-### Learn. Build. Grow.
+## 🚀 Learn. Build. Grow.
 
 SkillRise is a **full-stack AI-powered e-learning platform** built with the MERN stack that brings together **course discovery, online learning, instructor course management, student progress tracking, payments, ratings & reviews, and AI-powered learning tools** in one application.
 
