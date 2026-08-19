@@ -1,5 +1,22 @@
 # 🎓 SkillRise
 
+<p align="center">
+  <strong>AI-powered e-learning platform for discovering courses, learning, tracking progress, and growing your skills.</strong>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"/>
+  <img src="https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js & Express"/>
+  <img src="https://img.shields.io/badge/MongoDB-Mongoose-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB & Mongoose"/>
+  <img src="https://img.shields.io/badge/Google_Gemini-AI-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google Gemini AI"/>
+  <img src="https://img.shields.io/badge/Redux_Toolkit-764ABC?style=for-the-badge&logo=redux&logoColor=white" alt="Redux Toolkit"/>
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS"/>
+  <img src="https://img.shields.io/badge/Razorpay-Payments-02042B?style=for-the-badge" alt="Razorpay"/>
+</p>
+
+<p align="center"> <a href="https://skill-rise-orcin.vercel.app/"> 🌐 <strong>Live Demo</strong> </a> &nbsp; • &nbsp; <a href="https://github.com/tripathipalak/SkillRise"> ⭐ <strong>GitHub Repository</strong> </a> </p>
+
+
 ### Learn. Build. Grow.
 
 SkillRise is a **full-stack AI-powered e-learning platform** built with the MERN stack that brings together **course discovery, online learning, instructor course management, student progress tracking, payments, ratings & reviews, and AI-powered learning tools** in one application.
